@@ -15,6 +15,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.legevaktapp.ui.theme.LegevaktAppTheme
 import com.example.legevaktapp.ui.theme.LogInn.LoggScreen
+import com.example.legevaktapp.ui.theme.Menu.Meny
+
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,6 +32,9 @@ class MainActivity : ComponentActivity() {
                     NavHost(navController = navController, startDestination = "LoggScreen") {
                         composable("LoggScreen") {
                             LoggScreen(navController)
+                        }
+                        composable("Meny") {
+                            Meny(navController)
                         }
                     }
 
