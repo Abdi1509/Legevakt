@@ -51,6 +51,7 @@ fun LoggScreen(navController: NavController) {
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             item {
+
                 CenteredImage()
             }
         }
