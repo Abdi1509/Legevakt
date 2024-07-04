@@ -5,6 +5,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
@@ -12,12 +13,13 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -27,10 +29,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.fontResource
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
@@ -56,15 +55,13 @@ fun LoggScreen(navController: NavController) {
             }
         }
 
-        WhitePart()
+        WhitePart(navController)
     }
 }
 
 @Composable
-fun WhitePart() {
-    val RegularFont = FontFamily(
-        Font((R.font.kregular))
-    )
+fun WhitePart(navController: NavController) {
+    val RegularFont = FontFamily(Font(R.font.kregular))
 
     Column(
         modifier = Modifier
@@ -94,14 +91,88 @@ fun WhitePart() {
                         color = Color.Black
                     ),
                     modifier = Modifier.padding(8.dp)
-                        .padding(start = 10.dp)
                 )
                 Spacer(modifier = Modifier.height(16.dp))
                 EmailPasswordFields()
+                Spacer(modifier = Modifier.height(16.dp))
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.Center,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    //RegistButton(navController = navController)
+                    Spacer(modifier = Modifier.width(16.dp))
+                    LoginButton(navController = navController)
+                }
             }
         }
     }
 }
+
+
+@Composable
+fun LoginButton(navController: NavController) {
+    val RegularFont = FontFamily(Font(R.font.kregular))
+
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp)
+            .height(60.dp),
+        horizontalArrangement = Arrangement.End,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Spacer(modifier = Modifier.weight(1f))
+
+        Button(
+            onClick = { navController.navigate("Meny") },
+            colors = ButtonDefaults.buttonColors(Color(0xFF005A9B)),
+            modifier = Modifier
+                .width(195.dp)
+                .height(60.dp)
+                .padding(horizontal = 8.dp)
+        ) {
+            Text(
+                "Logg Inn",
+                fontSize = 20.sp,
+                style = TextStyle(fontFamily = RegularFont)
+            )
+        }
+    }
+}
+@Composable
+fun RegistButton(navController: NavController) {
+    val RegularFont = FontFamily(Font(R.font.kregular))
+
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp)
+            .height(60.dp),
+        horizontalArrangement = Arrangement.End,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Spacer(modifier = Modifier.weight(1f))
+
+        Button(
+            onClick = { navController.navigate("Meny") },
+            colors = ButtonDefaults.buttonColors(Color(0xFFFFFFFF)),
+            modifier = Modifier
+                .width(195.dp)
+                .height(60.dp)
+                .padding(horizontal = 8.dp)
+        ) {
+            Text(
+                "Ny bruker",
+                fontSize = 20.sp,
+                color = Color.Black,
+                style = TextStyle(fontFamily = RegularFont)
+            )
+        }
+    }
+}
+
+
 
 
 @Composable
@@ -153,5 +224,6 @@ fun EmailPasswordFields() {
                 .padding(vertical = 8.dp),
             shape = RoundedCornerShape(16.dp)
         )
+
     }
 }
