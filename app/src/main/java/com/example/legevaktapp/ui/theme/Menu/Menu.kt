@@ -3,6 +3,7 @@ package com.example.legevaktapp.ui.theme.Menu
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -24,6 +25,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
@@ -39,6 +41,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.legevaktapp.R
+import com.example.legevaktapp.ui.theme.Clinic.Clinics
 
 
 @Composable
@@ -49,12 +52,12 @@ fun Meny(navController: NavController) {
         LazyColumn(
             modifier = Modifier.fillMaxSize(),
             verticalArrangement = Arrangement.Top,
-            horizontalAlignment = Alignment.CenterHorizontally
+            //horizontalAlignment = Alignment.CenterHorizontally
         ) {
             item {
                 Column(
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    modifier = Modifier.padding(16.dp)
+                    //horizontalAlignment = Alignment.CenterHorizontally,
+                    modifier = Modifier.padding(16.dp).fillMaxWidth()
                 ) {
                     Row(verticalAlignment = Alignment.CenterVertically,
                         horizontalArrangement = Arrangement.Start) {
@@ -64,13 +67,25 @@ fun Meny(navController: NavController) {
                             modifier = Modifier.size(80.dp)
                         )
                         Text(
-                            "Hei Mattias!",
+                            "Hei Mattias!", //Store the name seperatly based on user
                             fontSize = 40.sp,
                             color = Color.Black,
                             style = TextStyle(fontFamily = RegularFont)
                         )
+
                     }
+                    Box(modifier = Modifier.padding(top = 10.dp,start = 15.dp)){
+                        Text(
+                            "Dine klinikker",
+                            fontSize = 30.sp,
+                            color = Color.Black,
+                            style = TextStyle(fontFamily = RegularFont),
+                        )
+
+                    }
+
                     HorizontalSwipeableContent()
+
                     Activity(navController = navController)
 
                 }
@@ -115,7 +130,8 @@ fun Bluepart(navController: NavController) {
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun HorizontalSwipeableContent() {
-    val pageCount = 3 // Number of swipeable pages
+    val clinics = Clinics.Clinics().clinicList
+    val pageCount = clinics.size // Number of swipeable pages
     val pagerState = rememberPagerState(pageCount = { pageCount })
     val coroutineScope = rememberCoroutineScope()
 
@@ -127,31 +143,60 @@ fun HorizontalSwipeableContent() {
             state = pagerState,
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(16.dp)
+                //.padding(16.dp)
         ) { page ->
+            val clinic = clinics[page]
             Card(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(200.dp)
-                    .padding(16.dp),
-                shape = RoundedCornerShape(16.dp)
+                    .padding(16.dp)
+                    .border(
+                        width = 3.dp,
+                        color = Color(0xFF005A9B),
+                        shape = RoundedCornerShape(16.dp)
+                    ),
+                shape = RoundedCornerShape(16.dp),
+                colors = CardDefaults.cardColors(
+                    containerColor = Color.White
+                )
             ) {
                 Column(
-                    modifier = Modifier.fillMaxSize(),
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(16.dp),
                     verticalArrangement = Arrangement.Center,
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Text(
-                        text = "Page ${page + 1}",
+                        text = clinic.name,
                         fontSize = 24.sp,
                         color = Color.Black,
-                        modifier = Modifier.padding(16.dp)
+                        modifier = Modifier.padding(8.dp)
+                    )
+                    Text(
+                        text = clinic.address,
+                        fontSize = 16.sp,
+                        color = Color.Black,
+                        modifier = Modifier.padding(8.dp)
+                    )
+                    Text(
+                        text = clinic.reception,
+                        fontSize = 16.sp,
+                        color = Color.Black,
+                        modifier = Modifier.padding(8.dp)
+                    )
+                    Text(
+                        text = clinic.doctor,
+                        fontSize = 16.sp,
+                        color = Color.Black,
+                        modifier = Modifier.padding(8.dp)
                     )
                 }
             }
         }
 
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(0.dp))
 
         // Dots Indicator
         Row(
@@ -174,19 +219,19 @@ fun HorizontalSwipeableContent() {
 
 @Composable
 fun Activity(navController: NavController){
+    Spacer(modifier = Modifier.height(70.dp))
     val RegularFont = FontFamily(Font(R.font.kregular))
 
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
             .fillMaxWidth()
-            .padding(16.dp)
     ) {
         Text(
             text = "Hva vil du gjøre idag?",
             style = TextStyle(
                 fontFamily = RegularFont,
-                fontSize = 40.sp,
+                fontSize = 35.sp,
                 color = Color.Black
             ),
             modifier = Modifier.padding(8.dp)
@@ -198,16 +243,16 @@ fun Activity(navController: NavController){
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceEvenly
             ) {
-                ClickableBox(navController, "Activity 1", Color(0xFFFFC107))
-                ClickableBox(navController, "Activity 2", Color(0xFF8BC34A))
+                ClickableBox(navController, "Fornye respeter", Color(0xFF95DB75))
+                ClickableBox(navController, "Meldinger", Color(0xFF75D5DB))
             }
             Spacer(modifier = Modifier.height(16.dp))
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceEvenly
             ) {
-                ClickableBox(navController, "Activity 3", Color(0xFF03A9F4))
-                ClickableBox(navController, "Activity 4", Color(0xFFE91E63))
+                ClickableBox(navController, "Helsejournal", Color(0xFFC39AE3))
+                ClickableBox(navController, "Fakta", Color(0xFFFDAF99))
             }
         }
     }
@@ -217,7 +262,9 @@ fun Activity(navController: NavController){
 fun ClickableBox(navController: NavController, text: String, backgroundColor: Color) {
     Box(
         modifier = Modifier
-            .size(150.dp)
+            .width(170.dp)
+            .height(80.dp)
+            .padding(8.dp)
             .clip(RoundedCornerShape(16.dp))
             .background(backgroundColor)
             .clickable {
@@ -228,8 +275,8 @@ fun ClickableBox(navController: NavController, text: String, backgroundColor: Co
     ) {
         Text(
             text = text,
-            color = Color.White,
-            fontSize = 20.sp,
+            color = Color.Black,
+            fontSize = 15.sp,
             fontFamily = FontFamily(Font(R.font.kregular))
         )
     }
@@ -247,7 +294,7 @@ fun BookButton(navController: NavController) {
         horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Spacer(modifier = Modifier.weight(1f))
+        //Spacer(modifier = Modifier.weight(1f))
 
         Button(
             onClick = { navController.navigate("Meny") },
