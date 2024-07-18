@@ -97,11 +97,13 @@ fun WhitePart(navController: NavController) {
                 EmailPasswordFields()
                 Spacer(modifier = Modifier.height(16.dp))
                 Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.Center,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 16.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    //RegistButton(navController = navController)
+                    RegistButton(navController = navController)
                     Spacer(modifier = Modifier.width(16.dp))
                     LoginButton(navController = navController)
                 }
@@ -110,66 +112,44 @@ fun WhitePart(navController: NavController) {
     }
 }
 
-
 @Composable
 fun LoginButton(navController: NavController) {
     val RegularFont = FontFamily(Font(R.font.kregular))
 
-    Row(
+    Button(
+        onClick = { navController.navigate("Meny") },
+        colors = ButtonDefaults.buttonColors(Color(0xFF005A9B)),
         modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 16.dp)
-            .height(60.dp),
-        horizontalArrangement = Arrangement.End,
-        verticalAlignment = Alignment.CenterVertically
+            //.weight(1f)
+            .height(60.dp)
+            .padding(horizontal = 8.dp)
     ) {
-        Spacer(modifier = Modifier.weight(1f))
-
-        Button(
-            onClick = { navController.navigate("Meny") },
-            colors = ButtonDefaults.buttonColors(Color(0xFF005A9B)),
-            modifier = Modifier
-                .width(195.dp)
-                .height(60.dp)
-                .padding(horizontal = 8.dp)
-        ) {
-            Text(
-                "Logg Inn",
-                fontSize = 20.sp,
-                style = TextStyle(fontFamily = RegularFont)
-            )
-        }
+        Text(
+            "Logg Inn",
+            fontSize = 20.sp,
+            style = TextStyle(fontFamily = RegularFont)
+        )
     }
 }
+
 @Composable
 fun RegistButton(navController: NavController) {
     val RegularFont = FontFamily(Font(R.font.kregular))
 
-    Row(
+    Button(
+        onClick = { navController.navigate("Register") },
+        colors = ButtonDefaults.buttonColors(Color(0xFFFFFFFF)),
         modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 16.dp)
-            .height(60.dp),
-        horizontalArrangement = Arrangement.End,
-        verticalAlignment = Alignment.CenterVertically
+            //.weight(1f)
+            .height(60.dp)
+            .padding(horizontal = 8.dp)
     ) {
-        Spacer(modifier = Modifier.weight(1f))
-
-        Button(
-            onClick = { navController.navigate("Meny") },
-            colors = ButtonDefaults.buttonColors(Color(0xFFFFFFFF)),
-            modifier = Modifier
-                .width(195.dp)
-                .height(60.dp)
-                .padding(horizontal = 8.dp)
-        ) {
-            Text(
-                "Ny bruker",
-                fontSize = 20.sp,
-                color = Color.Black,
-                style = TextStyle(fontFamily = RegularFont)
-            )
-        }
+        Text(
+            "Ny bruker",
+            fontSize = 20.sp,
+            color = Color.Black,
+            style = TextStyle(fontFamily = RegularFont)
+        )
     }
 }
 
