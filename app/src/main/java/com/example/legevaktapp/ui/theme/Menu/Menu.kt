@@ -57,20 +57,23 @@ fun Meny(navController: NavController) {
             item {
                 Column(
                     //horizontalAlignment = Alignment.CenterHorizontally,
-                    modifier = Modifier.padding(16.dp).fillMaxWidth()
+                    modifier = Modifier
+                        .padding(16.dp)
+                        .fillMaxWidth()
                 ) {
                     Row(verticalAlignment = Alignment.CenterVertically,
                         horizontalArrangement = Arrangement.Start) {
                         Image(
                             painter = painterResource(id = R.drawable.profiltest),
                             contentDescription = "Logo",
-                            modifier = Modifier.size(80.dp)
+                            modifier = Modifier.size(65.dp)
                         )
                         Text(
                             "Hei Mattias!", //Store the name seperatly based on user
                             fontSize = 40.sp,
                             color = Color.Black,
-                            style = TextStyle(fontFamily = RegularFont)
+                            style = TextStyle(fontFamily = RegularFont),
+                            modifier = Modifier.padding(start = 5.dp)
                         )
 
                     }
@@ -99,8 +102,6 @@ fun Meny(navController: NavController) {
 
 @Composable
 fun Bluepart(navController: NavController) {
-    val RegularFont = FontFamily(Font(R.font.kregular))
-
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -130,6 +131,7 @@ fun Bluepart(navController: NavController) {
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun HorizontalSwipeableContent() {
+    val RegularFont = FontFamily(Font(R.font.kregular))
     val clinics = Clinics.Clinics().clinicList
     val pageCount = clinics.size // Number of swipeable pages
     val pagerState = rememberPagerState(pageCount = { pageCount })
@@ -150,7 +152,7 @@ fun HorizontalSwipeableContent() {
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(200.dp)
-                    .padding(16.dp)
+                    //.padding(16.dp)
                     .border(
                         width = 3.dp,
                         color = Color(0xFF005A9B),
@@ -163,33 +165,44 @@ fun HorizontalSwipeableContent() {
             ) {
                 Column(
                     modifier = Modifier
-                        .fillMaxSize()
-                        .padding(16.dp),
-                    verticalArrangement = Arrangement.Center,
-                    horizontalAlignment = Alignment.CenterHorizontally
+                        .fillMaxSize(),
+                    verticalArrangement = Arrangement.Top,
+                    horizontalAlignment = Alignment.Start
                 ) {
                     Text(
                         text = clinic.name,
-                        fontSize = 24.sp,
-                        color = Color.Black,
+                        style = TextStyle(
+                            fontFamily = RegularFont,
+                            fontSize = 30.sp,
+                            color = Color.Black
+                        ),
                         modifier = Modifier.padding(8.dp)
                     )
                     Text(
                         text = clinic.address,
-                        fontSize = 16.sp,
-                        color = Color.Black,
+                        style = TextStyle(
+                            fontFamily = RegularFont,
+                            fontSize = 16.sp,
+                            color = Color.Black
+                        ),
                         modifier = Modifier.padding(8.dp)
                     )
                     Text(
                         text = clinic.reception,
-                        fontSize = 16.sp,
-                        color = Color.Black,
+                        style = TextStyle(
+                            fontFamily = RegularFont,
+                            fontSize = 16.sp,
+                            color = Color.Black
+                        ),
                         modifier = Modifier.padding(8.dp)
                     )
                     Text(
                         text = clinic.doctor,
-                        fontSize = 16.sp,
-                        color = Color.Black,
+                        style = TextStyle(
+                            fontFamily = RegularFont,
+                            fontSize = 16.sp,
+                            color = Color.Black
+                        ),
                         modifier = Modifier.padding(8.dp)
                     )
                 }
@@ -243,7 +256,7 @@ fun Activity(navController: NavController){
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceEvenly
             ) {
-                ClickableBox(navController, "Fornye respeter", Color(0xFF95DB75))
+                ClickableBox(navController, "Fornye respter", Color(0xFF95DB75))
                 ClickableBox(navController, "Meldinger", Color(0xFF75D5DB))
             }
             Spacer(modifier = Modifier.height(16.dp))
@@ -262,8 +275,8 @@ fun Activity(navController: NavController){
 fun ClickableBox(navController: NavController, text: String, backgroundColor: Color) {
     Box(
         modifier = Modifier
-            .width(170.dp)
-            .height(80.dp)
+            .width(190.dp)
+            .height(100.dp)
             .padding(8.dp)
             .clip(RoundedCornerShape(16.dp))
             .background(backgroundColor)
@@ -273,12 +286,20 @@ fun ClickableBox(navController: NavController, text: String, backgroundColor: Co
             },
         contentAlignment = Alignment.Center
     ) {
-        Text(
-            text = text,
-            color = Color.Black,
-            fontSize = 15.sp,
-            fontFamily = FontFamily(Font(R.font.kregular))
-        )
+        Row(){
+            Text(
+                text = text,
+                color = Color.Black,
+                fontSize = 16.sp,
+                fontFamily = FontFamily(Font(R.font.kregular))
+            )
+            Image(
+                painter = painterResource(id = R.drawable.profiltest),
+                contentDescription = "Logo",
+                modifier = Modifier.size(30.dp)
+            )
+        }
+
     }
 }
 

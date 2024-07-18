@@ -15,6 +15,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.legevaktapp.ui.theme.LegevaktAppTheme
 import com.example.legevaktapp.ui.theme.LogInn.LoggScreen
+import com.example.legevaktapp.ui.theme.LogInn.Register
 import com.example.legevaktapp.ui.theme.Menu.Meny
 
 
@@ -35,6 +36,9 @@ class MainActivity : ComponentActivity() {
                         }
                         composable("Meny") {
                             Meny(navController)
+                        }
+                        composable("Register") {
+                            Register(navController)
                         }
                     }
 
